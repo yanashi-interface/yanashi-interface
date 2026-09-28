@@ -1,0 +1,31 @@
+name: Full history calendar
+on:
+  # 毎日0時（UTC）に自動実行
+  schedule:
+    - cron: "0 0 * * *"
+  # 手動実行も可能にする
+  workflow_dispatch:
+  # mainブランチへのpushでも実行
+  push:
+    branches:
+      - main
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Full history calendar
+        uses: lowlighter/metrics@latest
+        with:
+          # ファイル名と出力先
+          filename: output/metrics.plugin.calendar.full.svg
+          # トークンを指定（プライベートリポジトリを含める場合）
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          # パブリックリポジトリのみの場合は、以下のコメントを解除
+          # token: ${{ secrets.GITHUB_TOKEN }}
+
+          # 基本設定
+          base:
+
+          # プラグイン設定
+          plugin_calendar: yes
+          plugin_calendar_limit: 0
